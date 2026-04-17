@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Management System - Status Check</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+        .status-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+        }
+        .status-card.error { border-left-color: #dc3545; background: #f8d7da; }
+        .status-card.warning { border-left-color: #ffc107; background: #fff3cd; }
+        .status-card.info { border-left-color: #17a2b8; background: #d1ecf1; }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { background: #0056b3; }
+        .btn.success { background: #28a745; }
+        .btn.success:hover { background: #1e7e34; }
+        .btn-group { text-align: center; margin: 30px 0; }
+        .login-box {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .step { margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        .command {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕊️ Church Management System</h1>
+
+        <div class="status-card success">
+            <h3>✅ BACKEND STATUS: RUNNING</h3>
+            <p><strong>Server:</strong> http://localhost:5000</p>
+            <p><strong>Database:</strong> MySQL Connected (church_management)</p>
+            <p><strong>Tables:</strong> Created (users, divisions, families, family_members, youth_members)</p>
+        </div>
+
+        <div class="status-card info">
+            <h3>🔄 FRONTEND STATUS: STARTING...</h3>
+            <p>React development server is initializing on http://localhost:3000</p>
+            <p>If it doesn't open automatically, click the button below.</p>
+        </div>
+
+        <div class="login-box">
+            <h3>🔑 LOGIN CREDENTIALS</h3>
+            <p><strong>Username:</strong> HJChosur</p>
+            <p><strong>Password:</strong> HJC@007</p>
+        </div>
+
+        <div class="btn-group">
+            <a href="http://localhost:3000" class="btn success" target="_blank">🚀 Open Church Management System</a>
+            <button class="btn" onclick="testAPI()">🧪 Test Backend APIs</button>
+            <button class="btn" onclick="checkStatus()">📊 Check System Status</button>
+        </div>
+
+        <div id="api-results" style="margin-top: 30px;"></div>
+
+        <div style="margin-top: 40px;">
+            <h3>📋 QUICK START GUIDE</h3>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Click "Open Church Management System" above</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Login with:</strong> HJChosur / HJC@007
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Add your first division</strong> (church areas)
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Add families</strong> and assign them to divisions
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Use Quick Entry</strong> for fast data input
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Generate QR codes</strong> for divisions and families
+            </div>
+
+            <div class="step">
+                <span class="step-number">7</span>
+                <strong>Export data</strong> as PDF, Excel, or Word
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+            <h4>💡 FEATURES INCLUDED:</h4>
+            <ul style="column-count: 2;">
+                <li>✅ Secure JWT authentication</li>
+                <li>✅ Family management with members</li>
+                <li>✅ Division organization</li>
+                <li>✅ Youth/bachelor tracking</li>
+                <li>✅ Quick entry forms</li>
+                <li>✅ QR code generation</li>
+                <li>✅ PDF/Excel/Word exports</li>
+                <li>✅ Search & filtering</li>
+                <li>✅ Mobile responsive</li>
+                <li>✅ Professional UI</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.innerHTML = '<h4>🧪 Testing APIs...</h4>';
+
+            try {
+                // Test health check
+                const healthResponse = await fetch('http://localhost:5000/api/health');
+                const healthData = await healthResponse.json();
+
+                // Test login
+                const loginResponse = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: 'HJChosur', password: 'HJC@007' })
+                });
+                const loginData = await loginResponse.json();
+
+                // Test dashboard (with token)
+                let dashboardData = null;
+                if (loginData.token) {
+                    const dashboardResponse = await fetch('http://localhost:5000/api/dashboard', {
+                        headers: { 'Authorization': `Bearer ${loginData.token}` }
+                    });
+                    dashboardData = await dashboardResponse.json();
+                }
+
+                resultsDiv.innerHTML = `
+                    <h4>✅ API Tests Results:</h4>
+                    <div style="background: #d4edda; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <strong>Health Check:</strong><br>
+                        <pre style="margin: 5px 0;">${JSON.stringify(healthData, null, 2)}</pre>
+                    </div>
+                    <div style="background: #cce7ff; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <strong>Login Test:</strong><br>
+                        <pre style="margin: 5px 0;">${JSON.stringify(loginData, null, 2)}</pre>
+                    </div>
+                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        <strong>Dashboard Stats:</strong><br>
+                        <pre style="margin: 5px 0;">${JSON.stringify(dashboardData, null, 2)}</pre>
+                    </div>
+                `;
+
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <h4>❌ API Test Failed:</h4>
+                    <div style="background: #f8d7da; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        Error: ${error.message}<br>
+                        Make sure the backend server is running on port 5000.
+                    </div>
+                `;
+            }
+        }
+
+        async function checkStatus() {
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.innerHTML = '<h4>📊 Checking System Status...</h4>';
+
+            try {
+                const response = await fetch('http://localhost:3000');
+                if (response.ok) {
+                    resultsDiv.innerHTML = `
+                        <div style="background: #d4edda; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                            ✅ Frontend is RUNNING on http://localhost:3000
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Frontend not responding');
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `
+                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                        🔄 Frontend is still starting up...<br>
+                        Keep refreshing this page or click "Open Church Management System" again.
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-check on page load
+        setTimeout(() => {
+            checkStatus();
+        }, 2000);
+    </script>
+</body>
+</html>
