@@ -71,7 +71,7 @@ router.post('/', adminOnly, async (req, res) => {
     });
   } catch (error) {
     console.error('Create division error:', error);
-    if (error.code === 'ER_DUP_ENTRY') {
+    if (error.code === 'ER_DUP_ENTRY' || error.code === '23505') {
       res.status(409).json({ message: 'Division name or username already exists' });
     } else {
       res.status(500).json({ message: 'Internal server error' });
@@ -110,7 +110,7 @@ router.put('/:id', adminOnly, async (req, res) => {
     res.json({ message: 'Division updated successfully' });
   } catch (error) {
     console.error('Update division error:', error);
-    if (error.code === 'ER_DUP_ENTRY') {
+    if (error.code === 'ER_DUP_ENTRY' || error.code === '23505') {
       res.status(409).json({ message: 'Division name or username already exists' });
     } else {
       res.status(500).json({ message: 'Internal server error' });

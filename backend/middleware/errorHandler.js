@@ -19,12 +19,12 @@ const errorHandler = (err, req, res, next) => {
     return res.status(401).json({ message: 'Token expired' });
   }
 
-  // MySQL errors
-  if (err.code === 'ER_DUP_ENTRY') {
+  // Database errors
+  if (err.code === 'ER_DUP_ENTRY' || err.code === '23505') {
     return res.status(409).json({ message: 'Duplicate entry' });
   }
 
-  if (err.code === 'ER_NO_SUCH_TABLE') {
+  if (err.code === 'ER_NO_SUCH_TABLE' || err.code === '42P01') {
     return res.status(500).json({ message: 'Database table not found' });
   }
 
