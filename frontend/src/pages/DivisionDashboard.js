@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
-import { FaUsers, FaUserFriends, FaChild, FaMale, FaFemale } from 'react-icons/fa';
+import { FaUsers, FaUserFriends, FaMale, FaFemale } from 'react-icons/fa';
 
 const DivisionDashboard = () => {
   const [stats, setStats] = useState({
@@ -20,23 +20,7 @@ const DivisionDashboard = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('divisionToken');
-    const userData = localStorage.getItem('divisionUser');
-
-    if (!token) {
-      navigate('/division/login');
-      return;
-    }
-
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-
-    loadDashboardData();
-  }, [navigate]);
-
-  const loadDashboardData = async () => {
+  const loadDashboardData = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -62,7 +46,23 @@ const DivisionDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('divisionToken');
+    const userData = localStorage.getItem('divisionUser');
+
+    if (!token) {
+      navigate('/division/login');
+      return;
+    }
+
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+
+    loadDashboardData();
+  }, [navigate, loadDashboardData]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);

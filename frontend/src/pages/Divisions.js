@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
-import { FaPlus, FaEdit, FaTrash, FaDownload, FaQrcode, FaBuilding } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaQrcode, FaBuilding } from 'react-icons/fa';
 
 const Divisions = () => {
   const [divisions, setDivisions] = useState([]);

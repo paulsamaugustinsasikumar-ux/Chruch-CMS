@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
-import { FaPlus, FaSave, FaUserPlus } from 'react-icons/fa';
+import { FaSave, FaUserPlus } from 'react-icons/fa';
 
 const QuickEntry = () => {
   const [divisions, setDivisions] = useState([]);

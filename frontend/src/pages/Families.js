@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
-import { FaPlus, FaEdit, FaTrash, FaDownload, FaQrcode, FaUsers } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaUsers } from 'react-icons/fa';
 
 const Families = () => {
   const [families, setFamilies] = useState([]);
@@ -184,7 +184,7 @@ const Families = () => {
     const englishName = family.name_english ? family.name_english.toLowerCase() : '';
     const tamilName = family.name_tamil ? family.name_tamil.toLowerCase() : '';
     const matchesSearch = englishName.includes(lowerSearch) || tamilName.includes(lowerSearch);
-    const matchesDivision = !selectedDivision || family.division_id == selectedDivision;
+    const matchesDivision = !selectedDivision || family.division_id === selectedDivision;
     return matchesSearch && matchesDivision;
   });
 
