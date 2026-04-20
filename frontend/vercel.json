@@ -16,6 +16,7 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "https://your-backend-url.com"
+    "REACT_APP_API_URL": "https://your-backend-url.com",
+    "DISABLE_ESLINT_PLUGIN": "true"
   }
 }
